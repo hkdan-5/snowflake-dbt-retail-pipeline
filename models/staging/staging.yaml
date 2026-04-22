@@ -1,0 +1,89 @@
+version: 2
+
+models:
+  - name: stg_customers
+    description: "Staging model for customer master data. Standardizes data types and prepares customer attributes for downstream dimensional models."
+    columns:
+      - name: customer_id
+        description: "Unique identifier for each customer."
+        data_tests:
+          - not_null
+          - unique
+
+      - name: customer_name
+        description: "Full name of the customer."
+        data_tests:
+          - not_null
+
+      - name: city
+        description: "Customer city."
+
+      - name: country
+        description: "Customer country."
+
+      - name: signup_date
+        description: "Date when the customer signed up."
+
+  - name: stg_products
+    description: "Staging model for product master data. Cleans and standardizes product attributes for downstream reporting."
+    columns:
+      - name: product_id
+        description: "Unique identifier for each product."
+        data_tests:
+          - not_null
+          - unique
+
+      - name: product_name
+        description: "Product name."
+        data_tests:
+          - not_null
+
+      - name: category
+        description: "Product category."
+
+      - name: price
+        description: "Standardized product price."
+        data_tests:
+          - not_null
+
+  - name: stg_orders
+    description: "Staging model for transactional order data. Casts data types, calculates line revenue, and generates a reusable order line key."
+    columns:
+      - name: order_id
+        description: "Order identifier."
+        data_tests:
+          - not_null
+
+      - name: order_date
+        description: "Date of the order."
+        data_tests:
+          - not_null
+
+      - name: customer_id
+        description: "Identifier of the customer placing the order."
+        data_tests:
+          - not_null
+
+      - name: product_id
+        description: "Identifier of the ordered product."
+        data_tests:
+          - not_null
+
+      - name: quantity
+        description: "Number of units ordered."
+        data_tests:
+          - not_null
+
+      - name: unit_price
+        description: "Unit price at the time of the order."
+        data_tests:
+          - not_null
+
+      - name: line_amount
+        description: "Calculated revenue for the order line."
+
+      - name: order_line_key
+        description: "Generated composite key based on order_id and product_id."
+        data_tests:
+          - not_null
+          - unique

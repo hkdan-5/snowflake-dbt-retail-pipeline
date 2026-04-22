@@ -1,0 +1,12 @@
+# Python
+.venv/
+__pycache__/
+
+# dbt
+target/
+dbt_packages/
+logs/
+
+# OS / Editor
+.DS_Store
+.vscode/

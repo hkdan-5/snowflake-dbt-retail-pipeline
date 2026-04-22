@@ -1,0 +1,103 @@
+version: 2
+
+models:
+  - name: dim_customers
+    description: "Customer dimension table for analytics and reporting."
+    columns:
+      - name: customer_id
+        description: "Unique identifier for each customer."
+        data_tests:
+          - not_null
+          - unique
+
+      - name: customer_name
+        description: "Customer full name."
+
+      - name: city
+        description: "Customer city."
+
+      - name: country
+        description: "Customer country."
+
+      - name: signup_date
+        description: "Date the customer signed up."
+
+  - name: dim_products
+    description: "Product dimension table for analytics and reporting."
+    columns:
+      - name: product_id
+        description: "Unique identifier for each product."
+        data_tests:
+          - not_null
+          - unique
+
+      - name: product_name
+        description: "Product name."
+
+      - name: category
+        description: "Product category."
+
+      - name: price
+        description: "Product price."
+
+  - name: dim_dates
+    description: "Date dimension derived from order dates."
+    columns:
+      - name: date_day
+        description: "Calendar date."
+        data_tests:
+          - not_null
+          - unique
+
+      - name: year_number
+        description: "Year component of the date."
+
+      - name: month_number
+        description: "Month component of the date."
+
+      - name: month_name
+        description: "Short month name."
+
+      - name: quarter_number
+        description: "Quarter component of the date."
+
+      - name: year_month
+        description: "Year-month representation in YYYY-MM format."
+
+  - name: fct_orders
+    description: "Fact table containing order line transactions enriched with customer and product attributes."
+    columns:
+      - name: order_line_key
+        description: "Unique key for each order line."
+        data_tests:
+          - not_null
+          - unique
+
+      - name: order_id
+        description: "Order identifier."
+        data_tests:
+          - not_null
+
+      - name: order_date
+        description: "Order date."
+        data_tests:
+          - not_null
+
+      - name: customer_id
+        description: "Foreign key to customer dimension."
+        data_tests:
+          - not_null
+
+      - name: product_id
+        description: "Foreign key to product dimension."
+        data_tests:
+          - not_null
+
+      - name: quantity
+        description: "Ordered quantity."
+
+      - name: unit_price
+        description: "Unit price for the product."
+
+      - name: line_amount
+        description: "Revenue amount for the order line."
